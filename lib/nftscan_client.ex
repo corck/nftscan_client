@@ -2,9 +2,10 @@ defmodule NFTScanClient.Client do
   @moduledoc """
   Client module for interacting with the NFTScan API.
   """
-  alias NFTScanClient.{NFT, Parser}
+  alias NFTScanClient.{Collection, Parser}
 
   @api_base_url "https://restapi.nftscan.com/api/v2/account/own/"
+  @collections_base_url "https://restapi.nftscan.com/api/v2/collections/"
 
   @spec get_api_key :: String.t()
   def get_api_key do
@@ -83,5 +84,51 @@ defmodule NFTScanClient.Client do
   # Parse the JSON response into a list of NFT structs
   defp parse_response(%{"data" => %{"content" => content}}) do
     Enum.map(content, &Parser.parse_nft/1)
+  end
+
+  @doc """
+  Retrieves collection information for a given contract address.
+
+  ## Parameters:
+
+    * `contract_address` (String): The contract address of the collection to retrieve.
+    * `opts` (Keyword list, optional): Additional options to customize the query. Defaults to an empty list.
+
+  ## Supported Options in `opts`:
+
+    * `:show_attribute` (boolean): Whether to include collection attributes in the response. Default is `false`.
+
+  ## Examples:
+
+      get_collection("0x123...")
+      get_collection("0x123...", show_attribute: true)
+
+  ## Returns:
+
+    * `{:ok, NFTScanClient.Collection.t()}` on success
+    * `{:error, reason}` on failure
+  """
+  @spec get_collection(String.t(), keyword()) :: {:ok, Collection.t()} | {:error, any()}
+  def get_collection(contract_address, opts \\ []) do
+    show_attribute = Keyword.get(opts, :show_attribute, false)
+    url = "#{@collections_base_url}#{contract_address}?show_attribute=#{show_attribute}"
+
+    headers = [{"X-API-KEY", get_api_key()}]
+
+    case HTTPoison.get(url, headers) do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+        case Jason.decode!(body) do
+          %{"data" => data} ->
+            {:ok, Parser.parse_collection(data)}
+          _ ->
+            {:error, "Invalid response format"}
+        end
+
+      {:ok, %HTTPoison.Response{status_code: 404}} ->
+        {:error, "Collection not found"}
+
+      {:error, %HTTPoison.Error{reason: reason}} ->
+        {:error, reason}
+    end
   end
 end

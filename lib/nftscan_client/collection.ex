@@ -1,0 +1,118 @@
+defmodule NFTScanClient.Collection do
+  @moduledoc """
+  Represents a collection from the NFTScan API.
+  """
+
+  # Example response:
+
+  # Example response from NFTScan API:
+  # {
+  #   "code": 200,
+  #   "msg": null,
+  #   "data": {
+  #     "contract_address": "0xbadbea1ef8e8ff955069fa5ef8603dbba9a3ce55",
+  #     "name": "Outlaw Dogs",
+  #     "symbol": "OGD",
+  #     "description": "The DODGE CITY OUTLAW DOGS Are A Play-To-Earn NFT Outlaw Gang. No Limit Poker, Shootouts, Bounty Hunting & Treasure Hunts. Welcome To The Wild West!",
+  #     "website": "https://www.outlawdogs.io/",
+  #     "email": null,
+  #     "twitter": "DCOutlawdogs",
+  #     "discord": "https://discord.gg/pPMaCtb9",
+  #     "telegram": null,
+  #     "github": null,
+  #     "instagram": null,
+  #     "medium": null,
+  #     "logo_url": "https://i.seadn.io/gae/KwYqH7tRxMQUJ6Cl-AQVPx21DJJyO0kLzmHXGfMBbDl0L827VGnfT5Fd4dnpsApRwzrNUtsCBeN9_Mzr9LjpO2ozd7V02O5W3L1ypA?w=500&auto=format",
+  #     "banner_url": "https://i.seadn.io/gae/kCYJaOcyIZIWRUFjCcR8qLqz64szN6DJqkADPqrCQ30gIZ5Aqeodhnt2HzpBo9ERXdG_rNGROq4rF61nhtB3PM2WgHWbwM9Lml-Lp2U?w=500&auto=format",
+  #     "featured_url": "https://image.nftscan.com/eth/banner/0xbadbea1ef8e8ff955069fa5ef8603dbba9a3ce55.png",
+  #     "large_image_url": "https://i.seadn.io/gae/5YzcP69gE2dtNOSjEAYhqotcKN8pLQrAbKBQM13QTpqYYilFypQarWtVYwdhI4WN_jkYvqsN9JVYuVOQ5ZWAqp-tSGp4LTeI1ARDNw?w=500&auto=format",
+  #     "attributes": [],
+  #     "erc_type": "erc721",
+  #     "deploy_block_number": 13529442,
+  #     "owner": "0x195edb48580fca079ade888213aea1359889fc4b",
+  #     "verified": false,
+  #     "opensea_verified": false,
+  #     "is_spam": false,
+  #     "royalty": 500,
+  #     "items_total": 866,
+  #     "amounts_total": 866,
+  #     "owners_total": 213,
+  #     "opensea_floor_price": 0.06,
+  #     "opensea_slug": "outlaw-dogs",
+  #     "floor_price": 0.06,
+  #     "collections_with_same_name": ["0xbadbea1ef8e8ff955069fa5ef8603dbba9a3ce55"],
+  #     "price_symbol": "ETH"
+  #   }
+  # }
+
+  @type t :: %__MODULE__{
+    contract_address: String.t(),
+    name: String.t(),
+    symbol: String.t(),
+    description: String.t() | nil,
+    website: String.t() | nil,
+    email: String.t() | nil,
+    twitter: String.t() | nil,
+    discord: String.t() | nil,
+    telegram: String.t() | nil,
+    github: String.t() | nil,
+    instagram: String.t() | nil,
+    medium: String.t() | nil,
+    logo_url: String.t() | nil,
+    banner_url: String.t() | nil,
+    featured_url: String.t() | nil,
+    large_image_url: String.t() | nil,
+    attributes: list(map()),
+    erc_type: String.t(),
+    deploy_block_number: integer(),
+    owner: String.t(),
+    verified: boolean(),
+    opensea_verified: boolean(),
+    is_spam: boolean(),
+    royalty: integer(),
+    items_total: integer(),
+    amounts_total: integer(),
+    owners_total: integer(),
+    opensea_floor_price: float() | nil,
+    opensea_slug: String.t() | nil,
+    floor_price: float() | nil,
+    collections_with_same_name: list(String.t()),
+    price_symbol: String.t()
+  }
+
+  defstruct [
+    :contract_address,
+    :name,
+    :symbol,
+    :description,
+    :website,
+    :email,
+    :twitter,
+    :discord,
+    :telegram,
+    :github,
+    :instagram,
+    :medium,
+    :logo_url,
+    :banner_url,
+    :featured_url,
+    :large_image_url,
+    :attributes,
+    :erc_type,
+    :deploy_block_number,
+    :owner,
+    :verified,
+    :opensea_verified,
+    :is_spam,
+    :royalty,
+    :items_total,
+    :amounts_total,
+    :owners_total,
+    :opensea_floor_price,
+    :opensea_slug,
+    :floor_price,
+    :collections_with_same_name,
+    :price_symbol
+  ]
+
+end
