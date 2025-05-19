@@ -28,3 +28,31 @@ or override the configuration like this
 ```elixir
 config :nftscan_client, api_key: System.get_env("NFTSCAN_API_KEY")
 ```
+
+## Usage
+
+### Fetching NFTs for an Account
+
+To retrieve NFTs associated with a specific Ethereum address, use the `nfts_by_account/2` function:
+
+```elixir
+# Fetch NFTs for an account
+{:ok, nfts} = NFTScanClient.Client.nfts_by_account("0x123...")
+
+# Fetch NFTs with custom options
+{:ok, nfts} = NFTScanClient.Client.nfts_by_account("0x123...", [erc_type: "erc1155", show_attribute: true])
+```
+
+### Fetching Collection Information
+
+To retrieve information about a specific collection, use the `get_collection/2` function:
+
+```elixir
+# Fetch a collection
+{:ok, collection} = NFTScanClient.Client.get_collection("0xabc...")
+
+# Fetch a collection with attributes
+{:ok, collection} = NFTScanClient.Client.get_collection("0xabc...", show_attribute: true)
+```
+
+These examples demonstrate the basic usage of the NFTScanClient. For more details, refer to the module documentation.
