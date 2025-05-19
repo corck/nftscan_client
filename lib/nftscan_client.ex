@@ -1,6 +1,14 @@
 defmodule NFTScanClient.Client do
   @moduledoc """
   Client module for interacting with the NFTScan API.
+
+  ## Example
+
+      # Fetch NFTs for an account
+      {:ok, nfts} = NFTScanClient.Client.nfts_by_account("0x123...")
+
+      # Fetch a collection
+      {:ok, collection} = NFTScanClient.Client.get_collection("0xabc...")
   """
   alias NFTScanClient.{Collection, Parser}
 
